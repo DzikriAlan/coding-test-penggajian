@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\MstDataPegawai;
 
 class LoginController extends Controller
 {
@@ -49,7 +50,7 @@ class LoginController extends Controller
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'password' => bcrypt($request->get('email')),
+            'password' => Hash::make($request->get('password')),
         ]);
 
         return response()->json(['status' => 'success', 'data' => $user], 200);
@@ -62,10 +63,16 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
+        $input = $request->all();
+
+        $user = User::where('email', $input['email'])->first();
+        $pegawai = MstDataPegawai::where('user_id', $user->id)->first();
+        $isAdmin = $pegawai->hak_akses == 1 ? true : null;
+
         $auth = $request->except(['remember_me']);
         if (auth()->attempt($auth, $request->remember_me)) {
             auth()->user()->update(['api_token' => Str::random(40)]);
-            return response()->json(['status' => 'success', 'data' => auth()->user()->api_token], 200);
+            return response()->json(['status' => 'success', 'data' => auth()->user()->api_token, 'isAdmin' => $isAdmin], 200);
         }
         return response()->json(['status' => 'failed']);
     }

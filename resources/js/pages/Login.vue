@@ -2,7 +2,7 @@
     <div class="container">
         <div class="login-box">
             <div class="login-logo">
-                <router-link :to="{ name: 'home' }"><b>Si</b>Caleg</router-link>
+                <router-link :to="{ name: 'home' }"><b>E</b>Salary</router-link>
             </div>
             <div class="login-box-body">
                 <p class="login-box-msg">silakan login</p>
@@ -66,7 +66,7 @@ export default {
             this.submit(this.data).then(() => {
                 if (this.isAuth) {
                     this.CLEAR_ERRORS()
-                    this.$router.push({ name: 'home' })
+                    this.$router.push({ name: 'dataGaji.data' })
                 }
             })
         },
