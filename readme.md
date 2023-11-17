@@ -31,6 +31,7 @@ php artisan key:generate
 npm install
 
 # dan jalankan
+npm run watch
 php artisan serve
 
 # login admin
