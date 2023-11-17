@@ -9,6 +9,11 @@ import DataJabatan from './pages/jabatan/Jabatan.vue'
 import AddJabatan from './pages/jabatan/Add.vue'
 import EditJabatan from './pages/jabatan/Edit.vue'
 
+import IndexPegawai from './pages/pegawai/Index.vue'
+import DataPegawai from './pages/pegawai/Pegawai.vue'
+import AddPegawai from './pages/pegawai/Add.vue'
+import EditPegawai from './pages/pegawai/Edit.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -47,6 +52,31 @@ const router = new Router({
                     name: 'jabatan.edit',
                     component: EditJabatan,
                     meta: { title: 'Edit Jabatan', permissions: ['edit jabatan'] }
+                },
+            ]
+        },
+        {
+            path: '/pegawai',
+            component: IndexPegawai,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'pegawai.data',
+                    component: DataPegawai,
+                    meta: { title: 'Manage Pegawai', permissions: ['read pegawai'] }
+                },
+                {
+                    path: 'add',
+                    name: 'pegawai.add',
+                    component: AddPegawai,
+                    meta: { title: 'Add New Pegawai', permissions: ['create pegawai'] }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'pegawai.edit',
+                    component: EditPegawai,
+                    meta: { title: 'Edit Pegawai', permissions: ['edit pegawai'] }
                 },
             ]
         },

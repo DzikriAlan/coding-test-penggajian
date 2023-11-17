@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import auth from './stores/auth.js'
 import jabatan from './stores/jabatan.js'
+import pegawai from './stores/pegawai.js'
 
 Vue.use(Vuex)
 
@@ -10,6 +11,7 @@ const store = new Vuex.Store({
     modules: {
         auth,
         jabatan,
+        pegawai,
     },
     state: {
         token: localStorage.getItem('token'),
