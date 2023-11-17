@@ -30,6 +30,14 @@ class MstDataJabatanController extends Controller
           $jabatanQuery->orWhere('tj_transport', 'LIKE', '%' . $search . '%');
           $jabatanQuery->orWhere('uang_makan', 'LIKE', '%' . $search . '%');
       }
+      $jabatanQuery->select(
+        'id',
+        'nama_jabatan',
+        DB::raw("FORMAT((gaji_pokok), 0, 'id_ID') as gaji_pokok"),
+        DB::raw("FORMAT((tj_transport), 0, 'id_ID') as tj_transport"),
+        DB::raw("FORMAT((uang_makan), 0, 'id_ID') as uang_makan"),
+      )
+      ->get();
 
       return response()->json(['status' => 'Success', 'data' => MasterResource::collection($jabatanQuery->paginate(static::ITEM_PER_PAGE))], 200);
     }

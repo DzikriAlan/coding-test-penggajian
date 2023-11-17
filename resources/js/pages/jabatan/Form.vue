@@ -7,17 +7,32 @@
         </div>
         <div class="form-group" :class="{ 'has-error': errors.gaji_pokok }">
             <label for="">Gaji Pokok</label>
-            <input type="text" id="uang" class="form-control" v-model="jabatan.gaji_pokok" />
+            <input
+                type="text"
+                class="form-control"
+                v-model="formattedGajiPokok"
+                @input="updateRealValueGajiPokok"
+            />
             <p class="text-danger" v-if="errors.gaji_pokok">{{ errors.gaji_pokok[0] }}</p>
         </div>
         <div class="form-group" id="uang" :class="{ 'has-error': errors.tj_transport }">
             <label for="">Tunjangan Transport</label>
-            <input type="text" class="form-control" v-model="jabatan.tj_transport" />
+            <input
+                type="text"
+                class="form-control"
+                v-model="formattedTjTransport"
+                @input="updateRealValueTjTransport"
+            />
             <p class="text-danger" v-if="errors.tj_transport">{{ errors.tj_transport[0] }}</p>
         </div>
         <div class="form-group" id="uang" :class="{ 'has-error': errors.uang_makan }">
             <label for="">Uang Makan</label>
-            <input type="text" class="form-control" v-model="jabatan.uang_makan" />
+            <input
+                type="text"
+                class="form-control"
+                v-model="formattedUangMakan"
+                @input="updateRealValueUangMakan"
+            />
             <p class="text-danger" v-if="errors.uang_makan">{{ errors.uang_makan[0] }}</p>
         </div>
    </div>
@@ -41,10 +56,61 @@
             ...mapState("jabatan", {
                 jabatan: state => state.jabatan
             }),
+            formattedGajiPokok: {
+                get() {
+                    return this.formatToRupiahGajiPokok(this.jabatan.gaji_pokok);
+                },
+                set(value) {
+                    this.jabatan.gaji_pokok = this.formatToNumberGajiPokok(value);
+                },
+            },
+            formattedTjTransport: {
+                get() {
+                    return this.formatToRupiahTjTransport(this.jabatan.tj_transport);
+                },
+                set(value) {
+                    this.jabatan.tj_transport= this.formatToNumberTjTransport(value);
+                },
+            },
+            formattedUangMakan: {
+                get() {
+                    return this.formatToRupiahUangMakan(this.jabatan.uang_makan);
+                },
+                set(value) {
+                    this.jabatan.uang_makan = this.formatToNumberUangMakan(value);
+                },
+            },
        },
         methods: {
             ...mapMutations('jabatan', ['CLEAR_FORM']),
             ...mapActions("jabatan", ['getAllJabatan', 'submitJabatan', 'editJabatan']),
+            formatToRupiahGajiPokok(value) {
+                return value.toLocaleString('id-ID');
+            },
+            formatToNumberGajiPokok(value) {
+                return Number(value.replace(/[^\d]/g, '')) || 0;
+            },
+            formatToRupiahTjTransport(value) {
+                return value.toLocaleString('id-ID');
+            },
+            formatToNumberTjTransport(value) {
+                return Number(value.replace(/[^\d]/g, '')) || 0;
+            },
+            formatToRupiahUangMakan(value) {
+                return value.toLocaleString('id-ID');
+            },
+            formatToNumberUangMakan(value) {
+                return Number(value.replace(/[^\d]/g, '')) || 0;
+            },
+            updateRealValueGajiPokok(event) {
+                this.jabatan.gaji_pokok = this.formatToNumberGajiPokok(event.target.value);
+            },
+            updateRealValueTjTransport(event) {
+                this.jabatan.tj_transport = this.formatToNumberTjTransport(event.target.value);
+            },
+            updateRealValueUangMakan(event) {
+                this.jabatan.uang_makan = this.formatToNumberUangMakan(event.target.value);
+            },
         },
         destroyed(){
             this.CLEAR_FORM()

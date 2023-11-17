@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MasterResource;
 use App\MstDataPotonganGaji;
+use DB;
 
 class MstDataPotonganGajiController extends Controller
 {
@@ -27,6 +28,14 @@ class MstDataPotonganGajiController extends Controller
           $potonganGajiQuery->where('potongan', 'LIKE', '%' . $search . '%');
           $potonganGajiQuery->orWhere('jml_potongan', 'LIKE', '%' . $search . '%');
       }
+
+      $potonganGajiQuery->select(
+        'id',
+        'potongan',
+        DB::raw("FORMAT((jml_potongan), 0, 'id_ID') as jml_potongan"),
+      )
+      ->get();
+
 
       return response()->json(['status' => 'Success', 'data' => MasterResource::collection($potonganGajiQuery->paginate(static::ITEM_PER_PAGE))], 200);
     }

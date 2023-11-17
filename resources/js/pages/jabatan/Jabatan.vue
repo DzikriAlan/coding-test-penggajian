@@ -10,23 +10,25 @@
             <div class="panel-body">
                 <b-table striped hover bordered :items="allJabatan.data" :fields="fields" show-empty>
                     <template slot="nomor" slot-scope="row">
-                        <p style="text-align: center;"><strong>{{ row.item.nomor }}</strong></p>
+                        <p style="text-align: center;">{{ row.item.nomor }}</p>
                     </template>
-                    <template slot="desa_id" slot-scope="row">
-                        <p><strong>{{ row.item.nama_jabatan }}</strong></p>
+                    <template slot="nama_jabatan" slot-scope="row">
+                        <p>{{ row.item.nama_jabatan }}</p>
                     </template>
-                    <template slot="no_jabatan" slot-scope="row">
-                        <p><strong>{{ row.item.gaji_pokok }}</strong></p>
+                    <template slot="gaji_pokok" slot-scope="row">
+                        <p>Rp.{{ row.item.gaji_pokok }}</p>
                     </template>
-                    <template slot="jumlah_dpt" slot-scope="row">
-                        <p><strong>{{ row.item.tj_transport }}</strong></p>
+                    <template slot="tj_transport" slot-scope="row">
+                        <p>Rp.{{ row.item.tj_transport }}</p>
                     </template>
-                    <template slot="jumlah_konstituen" slot-scope="row">
-                        <p><strong>{{ row.item.uang_makan }}</strong></p>
+                    <template slot="uang_makan" slot-scope="row">
+                        <p>Rp.{{ row.item.uang_makan }}</p>
                     </template>
                     <template slot="actions" slot-scope="row">
-                        <router-link :to="{ name: 'jabatan.edit', params: { id: row.item.id }}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
-                        <button class="btn btn-danger btn-sm" @click="deleteJabatan(row.item.id)"><i class="fa fa-trash"></i></button>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <router-link style="margin-right: 5px;" :to="{ name: 'jabatan.edit', params: { id: row.item.id }}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
+                            <button class="btn btn-danger btn-sm" @click="deleteJabatan(row.item.id)"><i class="fa fa-trash"></i></button>
+                        </div>
                     </template>
                </b-table>
             </div>

@@ -16,7 +16,7 @@
                       <p>{{ row.item.potongan }}</p>
                   </template>
                   <template slot="jml_potongan" slot-scope="row">
-                      <p>{{ row.item.jml_potongan }}</p>
+                      <p>Rp.{{ row.item.jml_potongan }}</p>
                   </template>
                   <template slot="actions" slot-scope="row">
                     <div style="display: flex; justify-content: center; align-items: center;">

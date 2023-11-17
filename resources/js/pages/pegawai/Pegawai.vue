@@ -28,8 +28,10 @@
                         <p>{{ row.item.nama_jabatan }}</p>
                     </template>
                     <template slot="actions" slot-scope="row">
-                        <router-link :to="{ name: 'pegawai.edit', params: { id: row.item.id }}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
-                        <button class="btn btn-danger btn-sm" @click="deletePegawai(row.item.id)"><i class="fa fa-trash"></i></button>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <router-link style="margin-right: 5px;" :to="{ name: 'pegawai.edit', params: { id: row.item.id }}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
+                            <button class="btn btn-danger btn-sm" @click="deletePegawai(row.item.id)"><i class="fa fa-trash"></i></button>
+                        </div>
                     </template>
                </b-table>
             </div>
