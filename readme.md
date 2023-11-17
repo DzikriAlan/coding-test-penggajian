@@ -1,5 +1,8 @@
 # Coding Test Penggajian - Dzikri Alan
 
+## Versi
+Node.js : v16.20.1, npm : 8.19.4, composer: 2.6.5
+
 ## Installation
 ```bash
 cp .env.example .env
@@ -29,7 +32,16 @@ npm install
 
 # dan jalankan
 php artisan serve
+
+# login admin
+username: dzikri@gmail.com
+password: password
+
+# login pegawai
+username: auliaharvy@gmail.com
+password: password
 ```
+
 
 ## License
 
