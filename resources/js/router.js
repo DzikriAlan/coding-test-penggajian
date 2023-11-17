@@ -18,6 +18,12 @@ import IndexPotonganGaji from './pages/potongan-gaji/Index.vue'
 import DataPotonganGaji from './pages/potongan-gaji/PotonganGaji.vue'
 import AddPotonganGaji from './pages/potongan-gaji/Add.vue'
 import EditPotonganGaji from './pages/potongan-gaji/Edit.vue'
+
+import IndexDataGaji from './pages/data-gaji/Index.vue'
+import DataDataGaji from './pages/data-gaji/DataGaji.vue'
+import AddDataGaji from './pages/data-gaji/Add.vue'
+import EditDataGaji from './pages/data-gaji/Edit.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -25,9 +31,28 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: Home,
-            meta: { requiresAuth: true, permissions: ['home'] }
+            component: IndexDataGaji,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'dataGaji.data',
+                    component: DataDataGaji,
+                    meta: { title: 'Gaji', permissions: ['read dataGaji'] }
+                },
+                {
+                    path: 'add',
+                    name: 'dataGaji.add',
+                    component: AddDataGaji,
+                    meta: { title: 'Add New DataGaji', permissions: ['create dataGaji'] }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'dataGaji.edit',
+                    component: EditDataGaji,
+                    meta: { title: 'Edit DataGaji', permissions: ['edit dataGaji'] }
+                },
+            ]
         },
         {
             path: '/login',
@@ -37,7 +62,7 @@ const router = new Router({
         {
             path: '/jabatan',
             component: IndexJabatan,
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, requiresAdmin: true  },
             children: [
                 {
                     path: '',
@@ -62,7 +87,7 @@ const router = new Router({
         {
             path: '/pegawai',
             component: IndexPegawai,
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, requiresAdmin: true  },
             children: [
                 {
                     path: '',
@@ -87,7 +112,7 @@ const router = new Router({
         {
             path: '/potongan-gaji',
             component: IndexPotonganGaji,
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, requiresAdmin: true },
             children: [
                 {
                     path: '',
@@ -114,7 +139,21 @@ const router = new Router({
 
 router.beforeEach(async(to, from, next) => {
     store.commit('CLEAR_ERRORS')
-    next();
+    if (to.matched.length === 0) {
+        next({ name: 'dataGaji.data' })
+        return;
+    }
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        let auth = store.getters.isAuth
+        if (!auth) {
+            next({ name: 'login' })
+        } else {
+            next()
+        }
+    }else {
+        next()
+    }
+    next()
 })
 
 export default router
