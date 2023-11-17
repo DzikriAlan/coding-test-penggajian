@@ -4,7 +4,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; 2023 <a href="https://suryamicrosystems.com">Surya Microsystems</a>.</strong> All rights
+            <strong>Copyright &copy; 2023 <a href="http://dzikri-alan.vercel.app/" target="_blank">Dzikri Alan Ramadhan</a>.</strong> All rights
             reserved.
         </div>
     </footer>
