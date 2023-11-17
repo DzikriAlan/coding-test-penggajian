@@ -14,6 +14,10 @@ import DataPegawai from './pages/pegawai/Pegawai.vue'
 import AddPegawai from './pages/pegawai/Add.vue'
 import EditPegawai from './pages/pegawai/Edit.vue'
 
+import IndexPotonganGaji from './pages/potongan-gaji/Index.vue'
+import DataPotonganGaji from './pages/potongan-gaji/PotonganGaji.vue'
+import AddPotonganGaji from './pages/potongan-gaji/Add.vue'
+import EditPotonganGaji from './pages/potongan-gaji/Edit.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -77,6 +81,31 @@ const router = new Router({
                     name: 'pegawai.edit',
                     component: EditPegawai,
                     meta: { title: 'Edit Pegawai', permissions: ['edit pegawai'] }
+                },
+            ]
+        },
+        {
+            path: '/potongan-gaji',
+            component: IndexPotonganGaji,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'potonganGaji.data',
+                    component: DataPotonganGaji,
+                    meta: { title: 'Manage PotonganGaji', permissions: ['read potonganGaji'] }
+                },
+                {
+                    path: 'add',
+                    name: 'potonganGaji.add',
+                    component: AddPotonganGaji,
+                    meta: { title: 'Add New PotonganGaji', permissions: ['create potonganGaji'] }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'potonganGaji.edit',
+                    component: EditPotonganGaji,
+                    meta: { title: 'Edit PotonganGaji', permissions: ['edit potonganGaji'] }
                 },
             ]
         },

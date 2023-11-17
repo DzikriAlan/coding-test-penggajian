@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import auth from './stores/auth.js'
 import jabatan from './stores/jabatan.js'
 import pegawai from './stores/pegawai.js'
+import potonganGaji from './stores/potonganGaji.js'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
         auth,
         jabatan,
         pegawai,
+        potonganGaji,
     },
     state: {
         token: localStorage.getItem('token'),
